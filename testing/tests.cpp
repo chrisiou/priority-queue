@@ -2,6 +2,12 @@
 #include "../priority_queue.h"
 #include "../priority_queue.cpp"
 
+TEST( test_priority_queue, size)
+{
+   Priority_queue<int> q;
+   ASSERT_EQ(q.size(), 0);
+}
+
 TEST( test_priority_queue, empty)
 {
    Priority_queue<int> q;
