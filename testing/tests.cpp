@@ -14,6 +14,13 @@ TEST( test_priority_queue, empty)
    ASSERT_TRUE(q.empty());
 }
 
+TEST( test_priority_queue, clear) 
+{
+   Priority_queue<int> q;
+   q.clear();
+   ASSERT_TRUE(q.empty());
+}
+
 int main(int argc, char **argv)
 {
     testing::InitGoogleTest(&argc, argv);

@@ -14,3 +14,11 @@ template <typename T>
 bool Priority_queue<T>::empty(void) {
     return (_size == 0);
 }
+
+/* 
+The method doesn't delete any item, let them overwritten by push
+*/
+template <typename T>
+void Priority_queue<T>::clear(void) {
+    _size = 0;
+}
