@@ -22,3 +22,8 @@ template <typename T>
 void Priority_queue<T>::clear(void) {
     _size = 0;
 }
+
+template <typename T>
+T Priority_queue<T>::top(void) {
+    return data[0];
+}

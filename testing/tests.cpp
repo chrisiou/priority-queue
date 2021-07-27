@@ -21,6 +21,13 @@ TEST( test_priority_queue, clear)
    ASSERT_TRUE(q.empty());
 }
 
+// TEST( test_priority_queue, top) 
+// {
+//    Priority_queue<int> q;
+//    q.push(666);
+//    ASSERT_EQ(q.top(), 666);
+// }
+
 int main(int argc, char **argv)
 {
     testing::InitGoogleTest(&argc, argv);
