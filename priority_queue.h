@@ -8,6 +8,8 @@ class Priority_queue {
     size_t _size = 0; // the number of elements
     size_t _capacity = 0; // the number of elements that can be held in currently allocated storage
 
+    void resize(void);
+    void heapify(void);
 public:
     Priority_queue() = default;
     ~Priority_queue();
@@ -16,8 +18,8 @@ public:
     bool empty(void);
     void clear(void);
 
-    T top(void);
     void push(const T& elem);
+    T top(void);
     T pop(void);
 
     template <typename U>
