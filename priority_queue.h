@@ -15,6 +15,7 @@ public:
     ~Priority_queue();
 
     size_t size(void);
+    size_t capacity(void);
     bool empty(void);
     void clear(void);
     void print(void);

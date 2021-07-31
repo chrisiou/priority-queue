@@ -10,6 +10,20 @@ TEST( test_priority_queue, size)
     ASSERT_EQ(q.size(), 1);
 }
 
+TEST( test_priority_queue, capacity)
+{
+    Priority_queue<int> q;
+    ASSERT_EQ(q.capacity(), 0);
+    q.push(4);
+    ASSERT_EQ(q.capacity(), 2*ARRAY_SIZE);
+
+    int i = 0;
+    while (i < 2*ARRAY_SIZE) {
+        q.push(i++);
+    }
+    ASSERT_EQ(q.capacity(), 4*ARRAY_SIZE);
+}
+
 TEST( test_priority_queue, empty)
 {
     Priority_queue<int> q;

@@ -8,6 +8,9 @@ template <typename T>
 size_t Priority_queue<T>::size(void) { return _size;}
 
 template <typename T>
+size_t Priority_queue<T>::capacity(void) { return _capacity;}
+
+template <typename T>
 bool Priority_queue<T>::empty(void) { return (_size == 0);}
 
 /* 
