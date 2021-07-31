@@ -11,7 +11,7 @@ template <typename T>
 bool Priority_queue<T>::empty(void) { return (_size == 0);}
 
 /* 
-The method doesn't delete any item, let them overwritten by push
+This method doesn't delete any item, let them overwritten by push
 */
 template <typename T>
 void Priority_queue<T>::clear(void) { _size = 0;}
@@ -21,6 +21,15 @@ void copy(T* to_be_copied, T* result, size_t size) {
     for (size_t i = 0; i < size; ++i) {
         result[i] = to_be_copied[i];
     }
+}
+
+template <typename T>
+void Priority_queue<T>::print(void) {
+    // std::cout << "priority_queue: ";
+    for (size_t i = 0; i < _size; ++i) {
+        std::cout << data[i] << " ";
+    }
+    std::cout << std::endl;
 }
 
 /*
