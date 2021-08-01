@@ -10,6 +10,8 @@ class Priority_queue {
 
     void resize(void);
     void heapify(void);
+    void pop_heapify(void);
+    size_t bigger_family_member(size_t parent_index);
 public:
     Priority_queue() = default;
     ~Priority_queue();
@@ -26,5 +28,13 @@ public:
 
     template <typename U>
     friend std::ostream& operator<<(std::ostream& out, const Priority_queue<U>& v);
+
+#ifdef TESTING
+protected:
+    friend void test_heapify(void);
+    friend void test_pop_heapify(void);
+    friend void test_bigger_family_member_method(void);
+#endif // TESTING
 };
+
 #endif // PRIORITY_QUEUE_H

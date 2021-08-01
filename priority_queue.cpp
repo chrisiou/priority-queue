@@ -20,19 +20,8 @@ template <typename T>
 void Priority_queue<T>::clear(void) { _size = 0;}
 
 template <typename T>
-void copy(T* to_be_copied, T* result, size_t size) {
-    for (size_t i = 0; i < size; ++i) {
-        result[i] = to_be_copied[i];
-    }
-}
-
-template <typename T>
 void Priority_queue<T>::print(void) {
-    // std::cout << "priority_queue: ";
-    for (size_t i = 0; i < _size; ++i) {
-        std::cout << data[i] << " ";
-    }
-    std::cout << std::endl;
+    for (size_t i = 0; i < _size; ++i) { std::cout << data[i] << " ";}
 }
 
 /*
@@ -46,17 +35,17 @@ void Priority_queue<T>::resize(void) {
     _capacity *= 2;
     data = new T[_capacity];
     if (not data) {
-        std::cout << "Sth went wrong in data allocation memory space" << std::endl;
+        std::cout << "Sth went wrong in data allocation memory space!" << std::endl;
         std::exit(EXIT_FAILURE);
     }
-    copy(tmp, data, _size);
+    for (size_t i = 0; i < _size; ++i) { data[i] = tmp[i];} // copy tmp to data
 }
 
 template <typename T>
-void Priority_queue<T>::heapify(void) {
+void Priority_queue<T>::bottom_up_heapify(void) {
     if (_size <= 1) {return;}
 
-    size_t i = _size-1;
+    size_t i = _size-1; // at last decresion of i, it will wrap around close to the biggest unsigned int
     while (((i-1)/2 < _size) & (data[i] > data[(i-1)/2])) {
         T tmp = data[i];
         data[i] = data[(i-1)/2];
@@ -69,10 +58,69 @@ void Priority_queue<T>::heapify(void) {
 template <typename T>
 void Priority_queue<T>::push(const T& elem) {
     if (_capacity == _size) { this->resize();}
-    data[_size] = elem;
-    _size++;
-    this->heapify();
+    data[_size++] = elem;
+    this->bottom_up_heapify();
 }
 
 template <typename T>
-T Priority_queue<T>::top(void) { return data[0];}
+T Priority_queue<T>::top(void) {
+    if (_size < 1) {
+        std::cout << "Queue is empty! Nothing to return!" << std::endl;
+        std::exit(EXIT_FAILURE);
+    }
+    return data[0];
+}
+
+/*
+Returns the index of the bigger family member between parent and child(ren)
+- if parent is equal to one of its children, it returns the parent index
+*/
+template <typename T>
+size_t Priority_queue<T>::bigger_family_member(size_t parent_i) {
+    if (_size < 1) { 
+        std::cout << "Queue is empty!" << std::endl;
+        std::exit(EXIT_FAILURE);
+    }
+    
+    if ((2*parent_i + 2 == _size) && (data[parent_i] < data[2*parent_i + 1])) { 
+        return 2*parent_i + 1; // returned if parent has only one child which is larger
+    }
+
+    size_t bigger_child = parent_i;
+    if (2*parent_i + 2 < _size) { // true, if parent node has two children
+        if (data[2*parent_i + 1] < data[2*parent_i + 2]) { bigger_child = 2*parent_i + 2;}
+        else { bigger_child = 2*parent_i + 1;}
+    }
+
+    if (data[parent_i] < data[bigger_child]) { return bigger_child;}
+    return parent_i;
+}
+
+template <typename T>
+void Priority_queue<T>::top_down_heapify(void) {
+    if (_size <= 1) {return;}
+
+    size_t parent = 0;
+    size_t bigger_child = this->bigger_family_member(parent);
+    while (data[parent] < data[bigger_child]) {
+        T tmp = data[parent];
+        data[parent] = data[bigger_child];
+        data[bigger_child] = tmp;
+
+        parent = bigger_child;
+        bigger_child = this->bigger_family_member(parent);
+    }
+}
+
+template <typename T>
+T Priority_queue<T>::pop(void) {
+    if (_size < 1) { 
+        std::cout << "Queue is empty! No elements to pop!" << std::endl;
+        std::exit(EXIT_FAILURE);
+    }
+    T root = this->top();
+    data[0] = data[--_size];
+    this->top_down_heapify();
+
+    return root;
+}
