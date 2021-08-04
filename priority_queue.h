@@ -20,7 +20,6 @@ public:
     size_t capacity(void);
     bool empty(void);
     void clear(void);
-    void print(void);
 
     void push(const T& elem);
     T top(void);

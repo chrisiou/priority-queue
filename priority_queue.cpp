@@ -19,11 +19,6 @@ This method doesn't delete any item, let them overwritten by push
 template <typename T>
 void Priority_queue<T>::clear(void) { _size = 0;}
 
-template <typename T>
-void Priority_queue<T>::print(void) {
-    for (size_t i = 0; i < _size; ++i) { std::cout << data[i] << " ";}
-}
-
 /*
 The method reallocates space to make the data array double in memory
 */
@@ -81,7 +76,7 @@ size_t Priority_queue<T>::bigger_family_member(size_t parent_i) {
         std::cout << "Queue is empty!" << std::endl;
         std::exit(EXIT_FAILURE);
     }
-    
+    if (parent_i > _size) {return parent_i;}
     if ((2*parent_i + 2 == _size) && (data[parent_i] < data[2*parent_i + 1])) { 
         return 2*parent_i + 1; // returned if parent has only one child which is larger
     }
@@ -123,4 +118,10 @@ T Priority_queue<T>::pop(void) {
     this->top_down_heapify();
 
     return root;
+}
+
+template <typename T>
+std::ostream& operator<<(std::ostream& out, const Priority_queue<T>& q) {
+    for (size_t i = 0; i < q._size; ++i) { out << q.data[i] << " ";}
+    return out;
 }

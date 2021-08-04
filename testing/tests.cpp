@@ -7,13 +7,15 @@ public:
     int id = 0;
     TestObj() = default;
     TestObj(int n) : id(n){};
-    friend bool operator<(const TestObj& q1, const TestObj& q2);
-    friend bool operator>(const TestObj& q1, const TestObj& q2);
-    friend bool operator==(const TestObj& q1, const TestObj& q2);
+    friend bool operator<(const TestObj& obj1, const TestObj& obj2);
+    friend bool operator>(const TestObj& obj1, const TestObj& obj2);
+    friend bool operator==(const TestObj& obj1, const TestObj& obj2);
+    friend std::ostream& operator<<(std::ostream& out, const TestObj& obj);
 };
-bool operator<(const TestObj& q1, const TestObj& q2) { return q1.id < q2.id;}
-bool operator>(const TestObj& q1, const TestObj& q2) { return q1.id > q2.id;}
-bool operator==(const TestObj& q1, const TestObj& q2) { return q1.id == q2.id;}
+bool operator<(const TestObj& obj1, const TestObj& obj2) { return obj1.id < obj2.id;}
+bool operator>(const TestObj& obj1, const TestObj& obj2) { return obj1.id > obj2.id;}
+bool operator==(const TestObj& obj1, const TestObj& obj2) { return obj1.id == obj2.id;}
+std::ostream& operator<<(std::ostream& out, const TestObj& obj) { out << obj.id; return out;}
 
 void test_bottom_up_heapify(void) {
     Priority_queue<int> q;
@@ -90,11 +92,6 @@ void test_top_down_heapify(void) {
     ASSERT_EQ(q1.data[2].id, 6);
     ASSERT_EQ(q1.data[3].id, 3);
 }
-
-// for (size_t i = 0; i < q1.size(); ++i) { 
-    //     std::cout << (q1.data[i]).id << " ";
-    // }
-    // std::cout << std::endl;
 
 void test_bigger_family_member_method(void) {
     Priority_queue<int> q;
@@ -273,6 +270,20 @@ TEST(test_priority_queue, pop) {
     ASSERT_EQ(q1.pop(), obj1);
     ASSERT_EQ(q1.size(), 0);
 }
+
+// TEST(test_priority_queue, output_operator) {
+//     Priority_queue<int> q;
+//     q.push(1);
+//     q.push(2);
+//     q.push(3);
+//     std::cout << q << std::endl;
+
+//     Priority_queue<TestObj> q1;
+//     q1.push(TestObj(1));
+//     q1.push(TestObj(2));
+//     q1.push(TestObj(3));
+//     std::cout << q1 << std::endl;
+// }
 
 int main(int argc, char **argv) {
     testing::InitGoogleTest (&argc, argv);
