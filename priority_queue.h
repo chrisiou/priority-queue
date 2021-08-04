@@ -9,8 +9,8 @@ class Priority_queue {
     size_t _capacity = 0; // the number of elements that can be held in currently allocated storage
 
     void resize(void);
-    void heapify(void);
-    void pop_heapify(void);
+    void bottom_up_heapify(void);
+    void top_down_heapify(void);
     size_t bigger_family_member(size_t parent_index);
 public:
     Priority_queue() = default;
@@ -31,8 +31,8 @@ public:
 
 #ifdef TESTING
 protected:
-    friend void test_heapify(void);
-    friend void test_pop_heapify(void);
+    friend void test_bottom_up_heapify(void);
+    friend void test_top_down_heapify(void);
     friend void test_bigger_family_member_method(void);
 #endif // TESTING
 };
